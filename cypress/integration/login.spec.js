@@ -5,6 +5,7 @@
  * @Description: basic UI login
  **/
 
+
 describe('Login to designmodo app', () => {
     before(() => {
         cy.visit(Cypress.env('baseURL')+'/my-account/sign-in/')
