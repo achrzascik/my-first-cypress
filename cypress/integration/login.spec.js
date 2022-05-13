@@ -5,9 +5,8 @@
  * @Description: basic UI login
  **/
 
-
 describe('Login to designmodo app', () => {
-    before(() => {
+    beforeEach(() => {
         cy.visit(Cypress.env('baseURL')+'/my-account/sign-in/')
         cy.get('[data-dialog-id=dm-accept-cookies] [data-dialog-action=close]').click()
       })
@@ -17,12 +16,39 @@ describe('Login to designmodo app', () => {
         cy.get('.button').contains('Create Account').should('be.visible')
         cy.get('.button').contains('Login').should('be.visible')
     })
-    it('Login to app', () => {
+    it('should login to app if username and password are correct', () => {
         cy.get('#username').type(Cypress.env('username'))
         cy.get('#password').type(Cypress.env('password'))
         cy.get('.checkbox').contains('Remember me').click()
         cy.get('.checkbox').contains('I agree to storage of my data according to').click()
         cy.get('.button').contains('Login').click()
-        cy.url().should('include', Cypress.env('baseURL')+'/my-account/')
+        cy.url().should('equal', Cypress.env('baseURL')+'/my-account/')
+    })
+    it('should not login to app if username is incorect and password is correct', () => {
+        cy.get('#username').type('username@a.aa')
+        cy.get('#password').type(Cypress.env('password'))
+        cy.get('.checkbox').contains('Remember me').click()
+        cy.get('.checkbox').contains('I agree to storage of my data according to').click()
+        cy.get('.button').contains('Login').click()
+        cy.url().should('equal', Cypress.env('baseURL')+'/my-account/sign-in/')
+        cy.contains("Incorrect username or password").should('be.visible')
+    })
+    it('should not login to app if username is corect and password is incorrect', () => {
+        cy.get('#username').type(Cypress.env('username'))
+        cy.get('#password').type('password')
+        cy.get('.checkbox').contains('Remember me').click()
+        cy.get('.checkbox').contains('I agree to storage of my data according to').click()
+        cy.get('.button').contains('Login').click()
+        cy.url().should('equal', Cypress.env('baseURL')+'/my-account/sign-in/')
+        cy.contains("Incorrect username or password").should('be.visible')
+    })
+    it('should not login to app if username and password are incorrect', () => {
+        cy.get('#username').type('username@a.aa')
+        cy.get('#password').type('password')
+        cy.get('.checkbox').contains('Remember me').click()
+        cy.get('.checkbox').contains('I agree to storage of my data according to').click()
+        cy.get('.button').contains('Login').click()
+        cy.url().should('equal', Cypress.env('baseURL')+'/my-account/sign-in/')
+        cy.contains("Incorrect username or password").should('be.visible')
     })
 })
