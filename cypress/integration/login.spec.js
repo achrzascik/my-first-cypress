@@ -24,7 +24,7 @@ describe('Login to designmodo app', () => {
         cy.get('.button').contains('Login').click()
         cy.url().should('equal', Cypress.env('baseURL')+'/my-account/')
     })
-    it('should not login to app if username is incorect and password is correct', () => {
+    it('should not login to app if username is incorrect and password is correct', () => {
         cy.get('#username').type('username@a.aa')
         cy.get('#password').type(Cypress.env('password'))
         cy.get('.checkbox').contains('Remember me').click()
@@ -33,7 +33,7 @@ describe('Login to designmodo app', () => {
         cy.url().should('equal', Cypress.env('baseURL')+'/my-account/sign-in/')
         cy.contains("Incorrect username or password").should('be.visible')
     })
-    it('should not login to app if username is corect and password is incorrect', () => {
+    it('should not login to app if username is correct and password is incorrect', () => {
         cy.get('#username').type(Cypress.env('username'))
         cy.get('#password').type('password')
         cy.get('.checkbox').contains('Remember me').click()
