@@ -10,7 +10,13 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('login', (username, password) => { 
+    cy.get('#username').clear().type(username)
+    cy.get('#password').clear().type(password)
+    cy.get('.checkbox').contains('Remember me').click()
+    cy.get('.checkbox').contains('I agree to storage of my data according to').click()
+    cy.get('.button').contains('Login').click()
+ })
 //
 //
 // -- This is a child command --
