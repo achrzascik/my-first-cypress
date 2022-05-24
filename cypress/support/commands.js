@@ -17,6 +17,43 @@ Cypress.Commands.add('login', (username, password) => {
     cy.get('.checkbox').contains('I agree to storage of my data according to').click()
     cy.get('.button').contains('Login').click()
  })
+
+Cypress.Commands.add('getReservationForEmployee', () => {
+    return cy.request({
+        method: 'GET',
+        form: true,
+        url: "/api/HotDesk/GetActiveReservationsForEmployee/" + Cypress.env('employeeId'),
+        headers: {
+            'X-ZUMO-AUTH': Cypress.env('X-ZUMO-AUTH'),
+            'X-MS-TOKEN-AAD-ACCESS-TOKEN': Cypress.env('X-MS-TOKEN-AAD-ACCESS-TOKEN'),
+            body: null
+        }
+    })
+})
+
+Cypress.Commands.add('getReservationForDesk', () => {
+    return cy.request({
+        method: 'GET',
+        form: true,
+        url: "/api/HotDesk/GetActiveReservationsForDesk/" + Cypress.env('deskId'),
+        headers: {
+            'X-ZUMO-AUTH': Cypress.env('X-ZUMO-AUTH'),
+            'X-MS-TOKEN-AAD-ACCESS-TOKEN': Cypress.env('X-MS-TOKEN-AAD-ACCESS-TOKEN'),
+            body: null
+        }
+    })
+})
+
+Cypress.Commands.add('deleteReservation',(reservationHotDeskId) =>{
+    return cy.request({
+        method: 'DELETE',
+        url: "api/HotDesk/" + reservationHotDeskId,
+        headers: {
+            'X-ZUMO-AUTH': Cypress.env('X-ZUMO-AUTH'),
+            'X-MS-TOKEN-AAD-ACCESS-TOKEN': Cypress.env('X-MS-TOKEN-AAD-ACCESS-TOKEN'),
+        }
+    })
+})
 //
 //
 // -- This is a child command --
