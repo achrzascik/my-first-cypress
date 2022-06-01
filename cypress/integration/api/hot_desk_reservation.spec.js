@@ -35,7 +35,6 @@ describe('Hot desk', () => {
     it('Verify if admin is able to check reservations for employee', () => {
         cy.getReservationForEmployee()
             .then(response => {
-                console.log(response)
                 expect(response.status).to.equal(200);
                 const reservation = response.body.find(x => {
                     return x.id == Cypress.env('reservationHotDeskId');
@@ -71,13 +70,6 @@ describe('Hot desk', () => {
             }
         }).then(response => {
             expect(response.status).to.equal(200);
-            // const reservation = response.body.find(x => {
-            //     return x.id == Cypress.env('reservationHotDeskId');
-            // })
-            // expect(reservation).to.exist;
-            // expect(reservation.id).to.equal(Cypress.env('reservationHotDeskId'));
-            // expect(reservation.desk.id).to.equal(Cypress.env('deskId').toLowerCase());
-            // expect(reservation.employee.id).to.equal(Cypress.env('employeeId').toLowerCase());
         })
     })
     it('Verify if admin is able to delete Hot desk reservation for employer', () => {

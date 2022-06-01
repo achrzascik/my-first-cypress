@@ -54,6 +54,22 @@ Cypress.Commands.add('deleteReservation',(reservationHotDeskId) =>{
         }
     })
 })
+
+
+Cypress.Commands.add('getExternalCompaniesEmployees', () => {
+    return cy.request({
+        method: 'GET',
+        form: true,
+        url: "/api/Project/" + (Cypress.env('companyId')),
+        headers: {
+            'X-ZUMO-AUTH': Cypress.env('X-ZUMO-AUTH'),
+            'X-MS-TOKEN-AAD-ACCESS-TOKEN': Cypress.env('X-MS-TOKEN-AAD-ACCESS-TOKEN'),
+            body: null
+        },
+    })
+})
+
+
 //
 //
 // -- This is a child command --
