@@ -7,9 +7,7 @@ describe('External employee', () => {
         cy.getExternalCompaniesEmployees()
         .then(response => {
             expect(response.status).to.equal(200);
-            //Cypress.env('externalCompanyEmployees', response.body.employees.map(x => x.id));
             externalCompanyEmployees = response.body.employees.map(x => x.id)
-            
         })
     })
     it('Verify if there is possibility to add new employee for chosen company', () => {

@@ -10,13 +10,12 @@ describe('Hot desk', () => {
                 }
             })
     })
-
     it('Verify if admin is able to create Hot desk reservation for employer', () => {
         const mydata = {
             reservingEmployee: Cypress.env('employeeId'),
             reservationStart: Cypress.env('startDate'),
             reservationEnd: Cypress.env('endDate'),
-            deskId: Cypress.env('deskId')
+            deskId: Cypress.env('hotDeskId')
         }
         cy.request({
             method: 'POST',
@@ -27,9 +26,10 @@ describe('Hot desk', () => {
             },
             body: mydata,
         }).then(response => {
+            const data = response.body;
             expect(response.status).to.equal(200);
-            Cypress.env('reservationHotDeskId', response.body)
-            expect(response.body.length).to.equal(36);
+            Cypress.env('reservationHotDeskId', data)
+            expect(data.length).to.equal(36);
         })
     })
     it('Verify if admin is able to check reservations for employee', () => {
