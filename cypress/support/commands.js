@@ -69,6 +69,18 @@ Cypress.Commands.add('getExternalCompaniesEmployees', () => {
     })
 })
 
+Cypress.Commands.add('getEmployeesDesks', () => {
+    return cy.request({
+        method: 'GET',
+        form: true,
+        url: "/api/Project/"+Cypress.env('projectId'),
+        headers: {
+            'X-ZUMO-AUTH': Cypress.env('X-ZUMO-AUTH'),
+            'X-MS-TOKEN-AAD-ACCESS-TOKEN': Cypress.env('X-MS-TOKEN-AAD-ACCESS-TOKEN'),
+            body: null
+        },
+    })
+})
 
 //
 //
